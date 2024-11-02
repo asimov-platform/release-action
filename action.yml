@@ -1,6 +1,6 @@
-name: 'Azimov release action'
+name: 'Asimov release action'
 author: 'ASIMOV by Haltia.AI <support@asimov.so>'
-description: 'Github action to help automate releasing new versions'
+description: 'GitHub action to help automate releasing new versions'
 inputs:
   changelog_path:
     description: 'Path to changelog file'
