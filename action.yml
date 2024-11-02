@@ -1,0 +1,44 @@
+name: 'Azimov release action'
+author: 'ASIMOV by Haltia.AI <support@asimov.so>'
+description: 'Github action to help automate releasing new versions'
+inputs:
+  changelog_path:
+    description: 'Path to changelog file'
+    required: false
+    default: 'CHANGELOG.md'
+  compute_checksum:
+    description: 'Compute checksum for each file?'
+    required: false
+    default: 'true'
+runs:
+  using: 'composite'
+  steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+        merge-multiple: true
+    - name: Compute checksums for artifacts
+      if: ${{ inputs.compute_checksum == 'true' }}
+      shell: bash
+      run: |
+        for file in artifacts/*; do
+          shasum --algorithm 256 "$file" > "$file.sha256"
+        done
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        path: repo
+    - name: Parse changelog
+      id: query-release-info
+      uses: release-flow/keep-a-changelog-action@v3
+      with:
+        command: query
+        version: latest
+        changelog: repo/${{ inputs.changelog_path }}
+    - name: Create release
+      uses: softprops/action-gh-release@v2
+      with:
+        body: ${{ steps.query-release-info.outputs.release-notes }}
+        tag_name: ${{ github.ref_name }}
+        files: artifacts/*
