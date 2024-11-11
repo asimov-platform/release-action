@@ -1,4 +1,4 @@
-# `asimov-platform/rust-build-action`
+# `asimov-platform/release-action`
 
 A simple action to download all artifacts from previous builds, parse [keep a changelog](https://keepachangelog.com) file and release a new version.
 
