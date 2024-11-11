@@ -2,11 +2,11 @@ name: 'ASIMOV release action'
 author: 'ASIMOV by Haltia.AI <support@asimov.so>'
 description: 'Action to help automate releasing new versions'
 inputs:
-  changelog_path:
+  changelog-path:
     description: 'Path to changelog file'
     required: false
     default: 'CHANGELOG.md'
-  compute_checksum:
+  compute-checksum:
     description: 'Compute checksum for each file?'
     required: false
     default: 'true'
@@ -19,7 +19,7 @@ runs:
         path: artifacts
         merge-multiple: true
     - name: Compute checksums for artifacts
-      if: ${{ inputs.compute_checksum == 'true' }}
+      if: ${{ inputs.compute-checksum == 'true' }}
       shell: bash
       run: |
         for file in artifacts/*; do
@@ -35,7 +35,7 @@ runs:
       with:
         command: query
         version: latest
-        changelog: repo/${{ inputs.changelog_path }}
+        changelog: repo/${{ inputs.changelog-path }}
     - name: Create release
       uses: softprops/action-gh-release@v2
       with:
