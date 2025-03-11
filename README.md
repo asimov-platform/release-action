@@ -21,6 +21,9 @@ You probably want to use this action in combination with [asimov-platform/rust-b
 
 ```yaml
 inputs:
+  # GitHub token used to create the release.
+  # Default: ${{ github.token }}
+  token:
   # Path to changelog file.
   # Default: CHANGELOG.md
   changelog-path:

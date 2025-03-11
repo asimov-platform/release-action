@@ -1,17 +1,21 @@
-name: 'ASIMOV release action'
-author: 'ASIMOV by Haltia.AI <support@asimov.so>'
-description: 'Action to help automate releasing new versions'
+name: "ASIMOV release action"
+author: "ASIMOV by Haltia.AI <support@asimov.so>"
+description: "Action to help automate releasing new versions"
 inputs:
+  token:
+    description: "GitHub token used to create the release"
+    required: false
+    default: ${{ github.token }}
   changelog-path:
-    description: 'Path to changelog file'
+    description: "Path to changelog file"
     required: false
-    default: 'CHANGELOG.md'
+    default: "CHANGELOG.md"
   compute-checksum:
-    description: 'Compute checksum for each file?'
+    description: "Compute checksum for each file?"
     required: false
-    default: 'true'
+    default: "true"
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Download artifacts
       uses: actions/download-artifact@v4
@@ -39,6 +43,7 @@ runs:
     - name: Create release
       uses: softprops/action-gh-release@v2
       with:
+        token: ${{ inputs.token }}
         body: ${{ steps.query-release-info.outputs.release-notes }}
         tag_name: ${{ github.ref_name }}
         files: artifacts/*
