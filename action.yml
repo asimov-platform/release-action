@@ -26,7 +26,8 @@ runs:
       if: ${{ inputs.compute-checksum == 'true' }}
       shell: bash
       run: |
-        for file in artifacts/*; do
+        cd artifacts
+        for file in *; do
           shasum --algorithm 256 "$file" > "$file.sha256"
         done
     - name: Checkout repository
