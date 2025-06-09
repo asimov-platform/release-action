@@ -23,19 +23,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Prepare
-      id: prepare
-      shell: bash
-      run: |
-        app_present=${{ (inputs.app_id || secrets.ASIMOV_APP_ID) != '' && (inputs.app_private_key || secrets.ASIMOV_APP_PRIVATE_KEY) != '' }}
-        echo "app_present=$app_present" >> $GITHUB_OUTPUT
     - name: Obtain token
       uses: actions/create-github-app-token@v2
       id: app-token
-      if: ${{ steps.prepare.outputs.app_present == 'true' }}
+      if: ${{ inputs.app_id != '' && inputs.app_private_key != '' }}
       with:
-        app-id: ${{ inputs.app_id || secrets.ASIMOV_APP_ID }}
-        private-key: ${{ inputs.app_private_key || secrets.ASIMOV_APP_PRIVATE_KEY }}
+        app-id: ${{ inputs.app_id }}
+        private-key: ${{ inputs.app_private_key }}
         permissions-contents: write
     - name: Set github credentials
       shell: bash
