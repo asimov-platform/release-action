@@ -65,7 +65,7 @@ runs:
         version: latest
         changelog: repo/${{ inputs.changelog-path }}
     - name: Create release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v2.2.2
       with:
         token: ${{ steps.app-token.outputs.token || inputs.token }}
         body: ${{ steps.query-release-info.outputs.release-notes }}
