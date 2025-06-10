@@ -30,7 +30,7 @@ runs:
       with:
         app-id: ${{ inputs.app_id }}
         private-key: ${{ inputs.app_private_key }}
-        permissions-contents: write
+        permission-contents: write
     - name: Set github credentials
       shell: bash
       if: ${{ steps.app-token.outputs.token != '' }}
