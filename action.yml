@@ -20,6 +20,19 @@ inputs:
     description: "Compute checksum for each file?"
     required: false
     default: "true"
+outputs:
+  url:
+    description: "github.com URL for the release"
+    value: ${{ steps.create-release.outputs.url }}
+  id:
+    description: "ID of the release"
+    value: ${{ steps.create-release.outputs.id }}
+  upload_url:
+    description: "URL to upload assets to"
+    value: ${{ steps.create-release.outputs.upload_url }}
+  assets:
+    description: "JSON array containing information about each uploaded asset"
+    value: ${{ steps.create-release.outputs.assets }}
 runs:
   using: "composite"
   steps:
@@ -65,6 +78,7 @@ runs:
         version: latest
         changelog: repo/${{ inputs.changelog-path }}
     - name: Create release
+      id: create-release
       uses: softprops/action-gh-release@v2.2.2
       with:
         token: ${{ steps.app-token.outputs.token || inputs.token }}
