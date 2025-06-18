@@ -10,6 +10,7 @@ You probably want to use this action in combination with [asimov-platform/rust-b
 
 ## Features
 
+- Can generate a GitHub token for the app.
 - Downloads all artifacts.
 - Computes checksums for all files.
 - Parses [keep a changelog](https://keepachangelog.com).
@@ -21,6 +22,12 @@ You probably want to use this action in combination with [asimov-platform/rust-b
 
 ```yaml
 inputs:
+  # App ID.
+  # Default: ''
+  app_id:
+  # App private key.
+  # Default: ''
+  app_private_key:
   # GitHub token used to create the release.
   # Default: ${{ github.token }}
   token:
@@ -30,4 +37,18 @@ inputs:
   # Compute checksum for each file?
   # Default: true
   compute-checksum:
+```
+
+### Outputs
+
+```yaml
+outputs:
+  # github.com URL for the release.
+  url:
+  # ID of the release.
+  id:
+  # URL to upload assets to.
+  upload_url:
+  # JSON array containing information about each uploaded asset.
+  assets:
 ```
