@@ -8,6 +8,9 @@ inputs:
   app_private_key:
     description: "App private key"
     required: false
+  pattern:
+    description: "Pattern to match artifacts to download"
+    required: false
   token:
     description: "GitHub token used to create the release"
     required: false
@@ -58,6 +61,7 @@ runs:
       with:
         path: artifacts
         merge-multiple: true
+        pattern: ${{ inputs.pattern }}
     - name: Compute checksums for artifacts
       if: ${{ inputs.compute-checksum == 'true' }}
       shell: bash
