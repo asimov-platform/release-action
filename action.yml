@@ -68,7 +68,9 @@ runs:
       run: |
         cd artifacts
         for file in *; do
-          shasum --algorithm 256 "$file" > "$file.sha256"
+          if [ -f "$file" ]; then
+            shasum --algorithm 256 "$file" > "$file.sha256"
+          fi
         done
     - name: Checkout repository
       uses: actions/checkout@v4
