@@ -90,7 +90,7 @@ runs:
         echo "DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
     - name: Create release
       id: create-release
-      uses: softprops/action-gh-release@v2.5.0
+      uses: softprops/action-gh-release@v3.0.3
       with:
         name: ${{ github.ref_name }} (${{ steps.prepare-release.outputs.DATE }})
         token: ${{ steps.app-token.outputs.token || inputs.token }}
