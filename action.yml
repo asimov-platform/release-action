@@ -83,10 +83,16 @@ runs:
         command: query
         version: latest
         changelog: repo/${{ inputs.changelog-path }}
+    - name: Prepare release
+      id: prepare-release
+      shell: bash
+      run: |
+        echo "DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
     - name: Create release
       id: create-release
       uses: softprops/action-gh-release@v2.5.0
       with:
+        name: ${{ github.ref_name }} (${{ steps.prepare-release.outputs.DATE }})
         token: ${{ steps.app-token.outputs.token || inputs.token }}
         body: ${{ steps.query-release-info.outputs.release-notes }}
         tag_name: ${{ github.ref_name }}
