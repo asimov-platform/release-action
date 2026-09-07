@@ -87,7 +87,7 @@ runs:
       id: prepare-release
       shell: bash
       run: |
-        echo "DATE=$(date --rfc-3339=date)" >> ${GITHUB_ENV}
+        echo "DATE=$(date --rfc-3339=date)" >> ${GITHUB_OUTPUT}
     - name: Create release
       id: create-release
       uses: softprops/action-gh-release@v3.0.3
